@@ -25,7 +25,6 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
-
 var bricks = [];
 for(var c=0; c<brickColumnCount;c++){
     bricks[c] = [];
@@ -33,6 +32,9 @@ for(var c=0; c<brickColumnCount;c++){
         bricks[c][r] = {x:0,y:0,status:1};
     }
 }
+
+//game variables
+var score = 0;
 
 function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -63,6 +65,7 @@ function draw() {
         paddleX -= 7;
     }
     drawPaddle();
+    drawScore();
     collisionDetection();
     drawBricks();
 }
@@ -101,6 +104,12 @@ function drawBricks(){
     }
 }
 
+function drawScore(){
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score,8,20);
+}
+
 //listeners
 document.addEventListener("keydown",keyDownHandler, false);
 document.addEventListener("keyup",keyUpHandler, false);
@@ -130,6 +139,12 @@ function collisionDetection(){
                 if (x>b.x && x<b.x+brickWidth && y>b.y && y<b.y+brickHeight){
                     dY = -dY;
                     b.status = 0;
+                    score++;
+                    if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATULATIONS!");
+                        document.location.reload();
+                        clearInterval(interval); // Needed for Chrome to end game
+                    }
                 }
             }
         }

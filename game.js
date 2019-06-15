@@ -1,11 +1,9 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-//canvas variables
+//ball variables
 var x = canvas.width/2;
 var y = canvas.height-30;
-
-//ball variables
 var dX = 2;
 var dY = -2;
 var ballRadius = 10;
@@ -24,8 +22,16 @@ function draw() {
     //ball logic
     drawBall();
 
-    if(y + dY > canvas.height-ballRadius || y + dY < ballRadius){
+    if( y + dY < ballRadius){
         dY = -dY;
+    } else if (y + dY > canvas.height-ballRadius){
+        if (x>paddleX && x < paddleX+paddleWidth){
+            dY = -dY;
+        }else{
+            alert("GAME OVER");
+            document.location.reload();
+            clearInterval(interval);
+        }
     }
 
     if(x + dX > canvas.width-ballRadius || x + dX < ballRadius){
@@ -79,4 +85,4 @@ function keyUpHandler(e){
     }
 }
 
-setInterval(draw,10);
+var interval = setInterval(draw,10);

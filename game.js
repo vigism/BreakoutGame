@@ -4,8 +4,8 @@ var ctx = canvas.getContext("2d");
 //ball variables
 var x = canvas.width/2;
 var y = canvas.height-30;
-var dX = 2;
-var dY = -2;
+var dX = 5;
+var dY = -4;
 var ballRadius = 10;
 
 //paddle variables
@@ -35,6 +35,7 @@ for(var c=0; c<brickColumnCount;c++){
 
 //game variables
 var score = 0;
+var lives = 3;
 
 function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -46,9 +47,19 @@ function draw() {
         if (x>paddleX && x < paddleX+paddleWidth){
             dY = -dY;
         }else{ //game over logic
-            alert("GAME OVER");
-            document.location.reload();
-            clearInterval(interval);
+            lives--;
+            if(!lives) {
+                alert("GAME OVER");
+                document.location.reload();
+                 // Needed for Chrome to end game
+            }
+            else {
+                x = canvas.width/2;
+                y = canvas.height-200;
+                dx = 2;
+                dy = -2;
+                paddleX = (canvas.width-paddleWidth)/2;
+            }
         }
     }
 
@@ -66,8 +77,10 @@ function draw() {
     }
     drawPaddle();
     drawScore();
+    drawLives();
     collisionDetection();
     drawBricks();
+    requestAnimationFrame(draw);
 }
 
 function drawBall(){
@@ -108,6 +121,12 @@ function drawScore(){
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: "+score,8,20);
+}
+
+function drawLives(){
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives, canvas.width-65 ,20);
 }
 
 //listeners
@@ -152,11 +171,11 @@ function collisionDetection(){
                     if(score == brickRowCount*brickColumnCount) {
                         alert("YOU WIN, CONGRATULATIONS!");
                         document.location.reload();
-                        clearInterval(interval); // Needed for Chrome to end game
+                         
                     }
                 }
             }
         }
     }
 }
-var interval = setInterval(draw,10);
+draw();

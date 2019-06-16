@@ -1,23 +1,23 @@
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 
-//ball letiables
+//ball variables
 let x = canvas.width/2;
 let y = canvas.height-30;
 let dX = 5;
 let dY = -4;
 let ballRadius = 10;
 
-//paddle letiables
+//paddle variables
 let paddleHeight = 10;
 let paddleWidth = 75;
 let paddleX = (canvas.width-paddleWidth)/2;
 
-//control letiables
+//control variables
 let rightPressed = false;
 let leftPressed = false;
 
-//brick letiables
+//brick variables
 let brickRowCount = 3;
 let brickColumnCount = 5;
 let brickWidth = 75;
@@ -33,7 +33,7 @@ for(let c=0; c<brickColumnCount;c++){
     }
 }
 
-//game letiables
+//game variables
 let score = 0;
 let lives = 3;
 

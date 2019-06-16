@@ -1,41 +1,41 @@
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
 
-//ball variables
-var x = canvas.width/2;
-var y = canvas.height-30;
-var dX = 5;
-var dY = -4;
-var ballRadius = 10;
+//ball letiables
+let x = canvas.width/2;
+let y = canvas.height-30;
+let dX = 5;
+let dY = -4;
+let ballRadius = 10;
 
-//paddle variables
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width-paddleWidth)/2;
+//paddle letiables
+let paddleHeight = 10;
+let paddleWidth = 75;
+let paddleX = (canvas.width-paddleWidth)/2;
 
-//control variables
-var rightPressed = false;
-var leftPressed = false;
+//control letiables
+let rightPressed = false;
+let leftPressed = false;
 
-//brick variables
-var brickRowCount = 3;
-var brickColumnCount = 5;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
-var bricks = [];
-for(var c=0; c<brickColumnCount;c++){
+//brick letiables
+let brickRowCount = 3;
+let brickColumnCount = 5;
+let brickWidth = 75;
+let brickHeight = 20;
+let brickPadding = 10;
+let brickOffsetTop = 30;
+let brickOffsetLeft = 30;
+let bricks = [];
+for(let c=0; c<brickColumnCount;c++){
     bricks[c] = [];
-    for(var r = 0;r < brickRowCount; r++){
+    for(let r = 0;r < brickRowCount; r++){
         bricks[c][r] = {x:0,y:0,status:1};
     }
 }
 
-//game variables
-var score = 0;
-var lives = 3;
+//game letiables
+let score = 0;
+let lives = 3;
 
 function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -100,11 +100,11 @@ function drawPaddle(){
 }
 
 function drawBricks(){
-    for(var c = 0; c < brickColumnCount; c++){
-        for(var r = 0;r < brickRowCount; r++){
+    for(let c = 0; c < brickColumnCount; c++){
+        for(let r = 0;r < brickRowCount; r++){
             if(bricks[c][r].status == 1){
-                var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-                var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+                let brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+                let brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
@@ -135,7 +135,7 @@ document.addEventListener("keyup",keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
 function mouseMoveHandler(e){
-    var relativeX = e.clientX - canvas.offsetLeft;
+    let relativeX = e.clientX - canvas.offsetLeft;
     if(relativeX>0 && relativeX<canvas.width){
         paddleX = relativeX- paddleWidth/2;
     }
@@ -160,9 +160,9 @@ function keyUpHandler(e){
 
 //collision detection with ball and bricks
 function collisionDetection(){
-    for(var c = 0; c < brickColumnCount; c++){
-        for(var r = 0;r < brickRowCount; r++){
-            var b = bricks[c][r];
+    for(let c = 0; c < brickColumnCount; c++){
+        for(let r = 0;r < brickRowCount; r++){
+            let b = bricks[c][r];
             if(b.status === 1){
                 if (x>b.x && x<b.x+brickWidth && y>b.y && y<b.y+brickHeight){
                     dY = -dY;

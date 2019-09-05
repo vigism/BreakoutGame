@@ -10,6 +10,14 @@ class Brick {
 
 }
 
+class Bomb {
+
+    constructor(x, y) {
+
+    }
+
+}
+
 
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
@@ -50,6 +58,9 @@ for(let c=0; c<brickColumnCount;c++){
 let score = 0;
 let lives = 3;
 
+//control reversed
+let reverseControl = false;
+
 function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height)
     //ball logic
@@ -83,13 +94,22 @@ function draw() {
     y +=  dY;
 
     //paddle logic
+    if(!reverseControl){
     if(rightPressed && paddleX < canvas.width-paddleWidth){
         paddleX += 7;
     }else if (leftPressed && paddleX > 0){
         paddleX -= 7;
     }
+    }else{
+        if(leftPressed && paddleX < canvas.width-paddleWidth){
+            paddleX += 7;
+        }else if (rightPressed && paddleX > 0){
+            paddleX -= 7;
+        }
+    }
     drawPaddle();
     drawScore();
+    drawHUD();
     drawLives();
     collisionDetection();
     drawBricks();
@@ -140,6 +160,13 @@ function drawScore(){
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: "+score,8,20);
+
+}
+
+function drawHUD() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Controls Reversed: "+reverseControl,100,20);
 }
 
 function drawLives(){
@@ -184,6 +211,9 @@ function collisionDetection(){
             let b = bricks[c][r];
             if(b.status === 1){
                 if (x>b.x && x<b.x+brickWidth && y>b.y && y<b.y+brickHeight){
+                    if(b.type === 1){
+                        reverseControl = !reverseControl;
+                    }
                     dY = -dY;
                     b.status = 0;
                     score++;

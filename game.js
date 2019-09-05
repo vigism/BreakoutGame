@@ -27,11 +27,11 @@ let x = canvas.width/2;
 let y = canvas.height-30;
 let dX = 5;
 let dY = -4;
-let ballRadius = 10;
+let ballRadius = 14;
 
 //paddle variables
-let paddleHeight = 10;
-let paddleWidth = 75;
+let paddleHeight = 25;
+let paddleWidth = 100;
 let paddleX = (canvas.width-paddleWidth)/2;
 
 //control variables
@@ -67,7 +67,7 @@ function draw() {
     drawBall();
     if( y + dY < ballRadius){
         dY = -dY;
-    } else if (y + dY > canvas.height-ballRadius){
+    } else if (y + dY > canvas.height-paddleHeight){
         if (x>paddleX && x < paddleX+paddleWidth){
             dY = -dY;
         }else{ //game over logic

@@ -41,11 +41,11 @@ let leftPressed = false;
 //brick variables
 let brickRowCount = 3;
 let brickColumnCount = 5;
-let brickWidth = 75;
-let brickHeight = 20;
-let brickPadding = 10;
-let brickOffsetTop = 30;
-let brickOffsetLeft = 30;
+let brickWidth = 100;
+let brickHeight = 40;
+let brickPadding = 20;
+let brickOffsetTop = 50;
+let brickOffsetLeft = 70;
 let bricks = [];
 for(let c=0; c<brickColumnCount;c++){
     bricks[c] = [];

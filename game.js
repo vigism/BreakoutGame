@@ -1,3 +1,16 @@
+
+class Brick {
+
+    constructor(x, y, status, type) {
+        this.x = x;
+        this.y = y;
+        this.status = status;
+        this.type = type;
+    }
+
+}
+
+
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 
@@ -29,7 +42,7 @@ let bricks = [];
 for(let c=0; c<brickColumnCount;c++){
     bricks[c] = [];
     for(let r = 0;r < brickRowCount; r++){
-        bricks[c][r] = {x:0,y:0,status:1};
+        bricks[c][r] = new Brick(0,0,1,0);
     }
 }
 
@@ -179,3 +192,5 @@ function collisionDetection(){
     }
 }
 draw();
+
+

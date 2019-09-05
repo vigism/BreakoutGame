@@ -42,7 +42,7 @@ let bricks = [];
 for(let c=0; c<brickColumnCount;c++){
     bricks[c] = [];
     for(let r = 0;r < brickRowCount; r++){
-        bricks[c][r] = new Brick(0,0,1,0);
+        bricks[c][r] = new Brick(0,0,1,(c+r)%3);
     }
 }
 
@@ -122,7 +122,13 @@ function drawBricks(){
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX,brickY,brickWidth,brickHeight);
-                ctx.fillStyle = "#0095DD";
+                if(bricks[c][r].type===0){
+                    ctx.fillStyle = "#0095DD";
+                }else if(bricks[c][r].type===1){
+                    ctx.fillStyle = "#008000";
+                }else {
+                    ctx.fillStyle = "#B22222";
+                }
                 ctx.fill();
                 ctx.closePath();
             }

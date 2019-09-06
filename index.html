@@ -9,12 +9,32 @@
     	* { padding: 0; margin: 0; color:white; }
     	canvas { background: rgb(85, 82, 82); display: block; margin: 20px auto; }
         h1{font-size: 70px; text-align: center;}
+        .container{display: flex; justify-content:stretch}
+        .instructions {max-width: 500px; padding-top:50px;padding-left: 20px;}
+        .instructions > * {padding: 20px;}
         
     </style>
 </head>
 <body bgcolor="black">
-    <h1 >Brick Breaker</h1>
-    <canvas id="myCanvas" width="700" height="700"></canvas>
-    <script src="game.js"></script>
+    <div class="container">
+        <div class="instructions">
+
+                <h3> Use the left and right arrow keys to move the paddle </h3>
+
+                <h3> The green bricks will reverse the controls upon breaking</h3>
+
+                <h3>The red bricks will drop a bomb that will destroy other bricks in it's path OR kill you if it hits your paddle</h3>
+
+                <h3> You have 3 lives.</h3>
+
+                <h3> Destroy all the bricks</h3>
+
+                <h3>Good luck!</h3>
+        </div>
+        <div><h1 >Brick Breaker</h1>
+            <canvas id="myCanvas" width="700" height="700"></canvas>
+            <script src="game.js"></script>
+        </div>
+    </div>
 </body>
 </html>

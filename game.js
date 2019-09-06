@@ -129,6 +129,7 @@ function draw() {
     drawLives();
     collisionDetection();
     collisionDetectionBomb();
+    collisionDetectionBombPaddle();
     drawBricks();
     drawBombs();
     requestAnimationFrame(draw);
@@ -286,6 +287,32 @@ function collisionDetectionBomb(){
         }
 
     }
+}
+
+//collision of bomb with paddle
+function collisionDetectionBombPaddle() {
+
+    for(let i = 0; i < bombs.length; i++) {
+        let curBomb = bombs[i];
+        if(curBomb.x > paddleX && curBomb.x < paddleX + (paddleWidth-(bombRadius/2)) && curBomb.y > canvas.height-paddleHeight){
+            //if bomb hits paddle
+            bombs.splice(i,1);
+            lives--;
+            if(!lives) {
+                alert("GAME OVER");
+                document.location.reload();
+                 // Needed for Chrome to end game
+            }
+            else {
+                x = canvas.width/2;
+                y = canvas.height-200;
+                dx = 2;
+                dy = -2;
+                paddleX = (canvas.width-paddleWidth)/2;
+            }
+        }
+    }
+
 }
 draw();
 

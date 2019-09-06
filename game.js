@@ -245,6 +245,7 @@ function collisionDetection(){
                     }else if(b.type === 2) {
                         bombs.push(new Bomb(b.x+brickWidth/2, b.y+brickHeight))
                     }
+                    
                     dY = -dY;
                     b.status = 0;
                     score++;

@@ -13,6 +13,8 @@ class Brick {
 class Bomb {
 
     constructor(x, y) {
+        this.x = x;
+        this.y = y;
 
     }
 
@@ -61,6 +63,11 @@ let lives = 3;
 //control reversed
 let reverseControl = false;
 
+//bomb variables
+let bombs = [];
+let bombRadius = 14;
+let bombDY = -3;
+
 function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height)
     //ball logic
@@ -107,12 +114,22 @@ function draw() {
             paddleX -= 7;
         }
     }
+
+    //move bombs
+    for(let i = 0; i < bombs.length; i++) {
+        bombs[i].y -= bombDY;
+        if(bombs[i].y > canvas.height) {
+            bombs.splice(i, 1);
+
+        }
+    }
     drawPaddle();
     drawScore();
     drawHUD();
     drawLives();
     collisionDetection();
     drawBricks();
+    drawBombs();
     requestAnimationFrame(draw);
 }
 
@@ -153,6 +170,16 @@ function drawBricks(){
                 ctx.closePath();
             }
         }
+    }
+}
+
+function drawBombs() {
+    for(let i = 0; i < bombs.length; i++) {
+        ctx.beginPath();
+        ctx.arc(bombs[i].x,bombs[i].y,bombRadius,0,Math.PI*2);
+        ctx.fillStyle="#000000";
+        ctx.fill();
+        ctx.closePath();
     }
 }
 
@@ -213,6 +240,8 @@ function collisionDetection(){
                 if (x>b.x && x<b.x+brickWidth && y>b.y && y<b.y+brickHeight){
                     if(b.type === 1){
                         reverseControl = !reverseControl;
+                    }else if(b.type === 2) {
+                        bombs.push(new Bomb(b.x+brickWidth/2, b.y+brickHeight))
                     }
                     dY = -dY;
                     b.status = 0;

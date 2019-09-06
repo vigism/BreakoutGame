@@ -128,6 +128,7 @@ function draw() {
     drawHUD();
     drawLives();
     collisionDetection();
+    collisionDetectionBomb();
     drawBricks();
     drawBombs();
     requestAnimationFrame(draw);
@@ -254,6 +255,36 @@ function collisionDetection(){
                 }
             }
         }
+    }
+}
+
+//collision detection with bomb and bricks
+function collisionDetectionBomb(){
+    for(let i = 0; i < bombs.length; i++) {
+        let curBomb = bombs[i];
+        for(let c = 0; c < brickColumnCount; c++){
+            for(let r = 0;r < brickRowCount; r++){
+                let b = bricks[c][r];
+                if(b.status === 1){
+                    if (curBomb.x>b.x && curBomb.x<b.x+brickWidth && curBomb.y>b.y && curBomb.y<b.y+brickHeight){
+                        if(b.type === 1){
+                            reverseControl = !reverseControl;
+                        }else if(b.type === 2) {
+                            bombs.push(new Bomb(b.x+brickWidth/2, b.y+brickHeight))
+                        }
+                        b.status = 0;
+                        score++;
+                        if(score == brickRowCount*brickColumnCount) {
+                            alert("YOU WIN, CONGRATULATIONS!");
+                            document.location.reload();
+                             
+                        }
+                        bombs.splice(i,1)
+                    }
+                }
+            }
+        }
+
     }
 }
 draw();
